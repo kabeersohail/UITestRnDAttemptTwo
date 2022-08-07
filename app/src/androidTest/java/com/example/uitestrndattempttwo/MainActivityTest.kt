@@ -32,7 +32,7 @@ class MainActivityTest {
 
         ActivityScenario.launch(MainActivity::class.java)
 
-        Assert.assertEquals("Sohail", uiTestApplication.testerName)
+        Assert.assertEquals("YES", uiTestApplication.testerName)
     }
 
 }

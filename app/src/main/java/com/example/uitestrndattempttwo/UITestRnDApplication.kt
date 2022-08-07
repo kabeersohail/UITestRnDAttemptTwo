@@ -22,6 +22,7 @@ class UITestRnDApplication: BaseApplication() {
     override fun onCreate() {
         super.onCreate()
         commandScheduler = CommandScheduler()
+        initializeColdFlow()
     }
 
     @VisibleForTesting
