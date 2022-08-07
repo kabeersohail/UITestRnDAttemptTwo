@@ -16,7 +16,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
 
-    private val uiTestApplication: UITestRnDApplication = ApplicationProvider.getApplicationContext()
+    private val baseApplication: BaseApplication = ApplicationProvider.getApplicationContext()
 
     @Test
     fun firstTest() = runTest {
@@ -32,7 +32,7 @@ class MainActivityTest {
 
         ActivityScenario.launch(MainActivity::class.java)
 
-        Assert.assertEquals("YES", uiTestApplication.testerName)
+        Assert.assertEquals("YES", baseApplication.testerName)
     }
 
 }
