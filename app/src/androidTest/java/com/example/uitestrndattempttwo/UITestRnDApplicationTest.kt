@@ -5,9 +5,9 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.runner.AndroidJUnitRunner
+import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.HiltTestApplication
 import io.mockk.verify
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,19 +25,19 @@ import org.junit.runner.RunWith
 @HiltAndroidTest
 class UITestRnDApplicationTest {
 
-    private val uiTestApplication: UITestRnDApplication = ApplicationProvider.getApplicationContext()
+    private val baseApplication: BaseApplication = ApplicationProvider.getApplicationContext()
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
     @Test
-    fun firstTest() = runTest {
+    fun firstTest()= runTest {
 
-        withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { uiTestApplication.initializeColdFlow() }
 
-        Assert.assertEquals("YES", uiTestApplication.testerName)
+        Assert.assertEquals(1,1)
+        withContext(CoroutineScope(Dispatchers.IO).coroutineContext) { baseApplication.initializeColdFlow() }
 
-        verify(exactly = 1) { uiTestApplication.initializeColdFlow() }
+        Assert.assertEquals("YES", baseApplication.testerName)
 
     }
 
@@ -53,6 +53,9 @@ class MyAndroidTestRunner : AndroidJUnitRunner() {
         className: String?,
         context: Context?,
     ): Application {
-        return super.newApplication(cl, HiltTestApplication::class.java.name, context)
+        return super.newApplication(cl, MyCustomTestApplication_Application::class.java.name, context)
     }
 }
+
+@CustomTestApplication(BaseApplication::class)
+interface MyCustomTestApplication
